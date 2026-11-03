@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08090c">
+  <meta name="description" content="J.A.V.E.L.I.N. — Jeeshan's Advanced Virtual Engine for Logic, Intelligence & Navigation.">
+  <title>J.A.V.E.L.I.N. — Personal AI Assistant</title>
+  <link rel="icon" type="image/png" href="assets/javelin-avatar.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <div class="brand-row">
+        <div class="brand-mark">J<span>.</span></div>
+        <div class="brand-copy"><strong>J.A.V.E.L.I.N.</strong><small>PERSONAL AI SYSTEM</small></div>
+        <button class="icon-btn sidebar-close" id="closeSidebar" aria-label="Close navigation">×</button>
+      </div>
+      <button class="new-chat-btn" id="newChatBtn"><span class="plus">＋</span> New chat <kbd>Ctrl K</kbd></button>
+      <label class="search-box"><span>⌕</span><input id="chatSearch" type="search" placeholder="Search conversations…" autocomplete="off"></label>
+      <div class="section-label">YOUR WORKSPACE <span class="live-dot"></span></div>
+      <div class="history-list" id="historyList" aria-label="Conversation history"></div>
+      <div class="sidebar-bottom">
+        <div class="mini-status"><span class="status-orb" id="sidebarStatusOrb"></span><div><strong id="sidebarStatusText">Not connected</strong><small>Gemini connection</small></div><button class="tiny-link" id="quickApiBtn">Setup</button></div>
+        <button class="nav-item" id="settingsBtn"><span>⚙</span> Settings <span class="nav-chevron">›</span></button>
+        <div class="profile-row"><img src="assets/javelin-avatar.png" alt="J.A.V.E.L.I.N. official avatar"><div><strong>Jeeshan Ahmad</strong><small>System owner</small></div><span class="owner-badge">OWNER</span></div>
+      </div>
+    </aside>
+
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    <main class="main-panel">
+      <header class="topbar">
+        <div class="topbar-left"><button class="icon-btn menu-btn" id="openSidebar" aria-label="Open navigation">☰</button><div class="breadcrumb"><span>Workspace</span><span class="crumb-sep">/</span><strong id="topChatTitle">New conversation</strong></div></div>
+        <div class="topbar-right">
+          <div class="connection-pill" id="connectionPill"><span class="status-orb"></span><span id="connectionLabel">Offline</span></div>
+          <button class="topbar-model" id="topModelBtn" title="Choose model"><span class="model-spark">✳</span><span id="topModelLabel">Gemini 3.8 Flash</span><span class="chevron">⌄</span></button>
+        </div>
+      </header>
+
+      <section class="chat-scroll" id="chatScroll" aria-live="polite">
+        <div class="welcome" id="welcomeScreen">
+          <div class="welcome-avatar-wrap"><div class="avatar-ring"></div><img class="welcome-avatar" src="assets/javelin-avatar.png" alt="J.A.V.E.L.I.N. official avatar"><span class="avatar-online"></span></div>
+          <div class="eyebrow"><span class="eyebrow-line"></span> PERSONAL ADVANCED AI <span class="eyebrow-line"></span></div>
+          <h1>Hello, <span>Architect.</span></h1>
+          <p class="welcome-lead">I'm J.A.V.E.L.I.N. How can I assist you today?</p>
+          <div class="identity-card"><div class="identity-icon">J.</div><div><strong>J.A.V.E.L.I.N.</strong><p>JEESHAN'S ADVANCED VIRTUAL ENGINE FOR LOGIC, INTELLIGENCE &amp; NAVIGATION</p></div><span class="verified-mark">✓</span></div>
+          <div class="prompt-grid">
+            <button class="prompt-card" data-prompt="Help me plan and build a modern responsive website using HTML, CSS and JavaScript."><span class="prompt-icon blue">⌘</span><span><strong>Build a website</strong><small>Plan a polished web experience</small></span><b>↗</b></button>
+            <button class="prompt-card" data-prompt="Help me debug my code. Explain the cause and show a corrected version."><span class="prompt-icon violet">⌕</span><span><strong>Debug my code</strong><small>Find issues and fix them</small></span><b>↗</b></button>
+            <button class="prompt-card" data-prompt="Teach me a programming concept in simple steps, with examples and a short practice task."><span class="prompt-icon cyan">{ }</span><span><strong>Explain programming</strong><small>Learn one concept at a time</small></span><b>↗</b></button>
+            <button class="prompt-card" data-prompt="Help me brainstorm a useful, realistic technology project I can build as a beginner."><span class="prompt-icon silver">✧</span><span><strong>Brainstorm an idea</strong><small>Turn an idea into a plan</small></span><b>↗</b></button>
+          </div>
+          <div class="welcome-foot"><span class="tiny-shield">◇</span> Your workspace · Your ideas · Your command</div>
+        </div>
+        <div class="messages" id="messages"></div>
+      </section>
+
+      <button class="scroll-bottom-btn" id="scrollBottomBtn" hidden aria-label="Scroll to bottom">↓</button>
+
+      <footer class="composer-area">
+        <div class="composer-wrap">
+          <div class="composer-box">
+            <textarea id="messageInput" rows="1" placeholder="Message J.A.V.E.L.I.N.…" aria-label="Message J.A.V.E.L.I.N."></textarea>
+            <div class="composer-bottom">
+              <div class="composer-tools">
+                <button class="tool-btn" id="micBtn" title="Dictate message" aria-label="Start voice input">🎤</button>
+                <span class="composer-hint">Enter to send · Shift + Enter for new line</span>
+                <span class="char-count" id="charCount"></span>
+              </div>
+              <div class="composer-actions">
+                <button class="send-btn" id="sendBtn" aria-label="Send message"><b>↑</b></button>
+                <button class="stop-btn" id="stopBtn" hidden>■ Stop</button>
+              </div>
+            </div>
+          </div>
+          <p class="disclaimer">J.A.V.E.L.I.N. can make mistakes. Verify important information. <span>API keys are used in your browser.</span></p>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <dialog class="settings-dialog" id="settingsDialog">
+    <div class="dialog-head"><div><div class="dialog-eyebrow">SYSTEM CONTROL</div><h2>Settings <span>&amp; configuration</span></h2></div><button class="icon-btn" id="closeSettings" aria-label="Close settings">×</button></div>
+    <div class="settings-tabs"><button class="settings-tab active" data-tab="apiPanel">API &amp; Model</button><button class="settings-tab" data-tab="preferencesPanel">Preferences</button><button class="settings-tab" data-tab="identityPanel">About JAVELIN</button></div>
+    <section class="settings-panel active" id="apiPanel">
+      <div class="panel-title"><span class="panel-symbol">✳</span><div><h3>Gemini connection</h3><p>Connect your own Google Gemini API key.</p></div><span class="status-tag" id="settingsStatus">DISCONNECTED</span></div>
+      <a class="field-label api-key-create-link" href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer">Google Gemini API key ↗</a>
+      <div class="key-field"><input id="apiKeyInput" type="password" placeholder="Paste your API key" autocomplete="off" spellcheck="false"><button id="toggleKeyBtn" type="button">Show</button></div>
+      <div class="field-help">Your key is not included in the project source. Saving it stores it in this browser's LocalStorage.</div>
+      <label class="field-label" for="modelSelect">Gemini model</label>
+      <select id="modelSelect" class="select-field">
+        <option value="gemini-3.8-flash">Gemini 3.8 Flash</option>
+        <option value="gemini-4-argon">Gemini 4 Argon</option>
+        <option value="gemini-3.6-flash">Gemini 3.6 Flash</option>
+        <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash-Lite</option>
+        <option value="gemini-3.1-flash-lite">Gemini 3.1 Flash-Lite</option>
+      </select>
+      <div class="api-actions"><button class="secondary-btn" id="disconnectBtn">Disconnect</button><button class="primary-btn" id="connectBtn">Save &amp; connect <span>→</span></button></div>
+      <div class="security-note"><span>⚠</span><div><strong>Browser-side key warning</strong><p>This backend-free prototype sends your key from the browser to Google's API. Anyone with access to this browser or its developer tools may be able to find it. Use a key with appropriate restrictions, monitor usage, and never publish this project with a personal key saved.</p></div></div>
+      <p class="api-result" id="apiResult" role="status"></p>
+    </section>
+    <section class="settings-panel" id="preferencesPanel">
+      <div class="panel-title"><span class="panel-symbol">◈</span><div><h3>Personal preferences</h3><p>Make the workspace yours.</p></div></div>
+      <label class="field-label" for="themeSelect">Appearance</label><select id="themeSelect" class="select-field"><option value="dark">Black &amp; white (default)</option><option value="light">Light mode</option></select>
+      <label class="field-label" for="languageSelect">Response language</label><select id="languageSelect" class="select-field"><option value="auto">Automatic (match my language)</option><option value="en">English</option><option value="hi">Hindi</option><option value="hinglish">Hinglish</option></select>
+      <div class="preference-row"><div><strong>Conversation history</strong><small>Saved in this browser on this device.</small></div><button class="secondary-btn danger-btn" id="clearAllBtn">Clear all chats</button></div>
+      <p class="field-help">Clearing conversations cannot be undone. It does not remove your API key or preferences.</p>
+    </section>
+    <section class="settings-panel" id="identityPanel">
+      <div class="about-avatar"><img src="assets/javelin-avatar.png" alt="J.A.V.E.L.I.N. official avatar"><div><div class="dialog-eyebrow">OFFICIAL SYSTEM IDENTITY</div><h3>J.A.V.E.L.I.N.</h3><p>Personal Advanced AI Assistant</p></div></div>
+      <div class="identity-detail"><span>Full form</span><strong>JEESHAN'S ADVANCED VIRTUAL ENGINE FOR LOGIC, INTELLIGENCE &amp; NAVIGATION</strong></div>
+      <div class="identity-detail"><span>Founder &amp; creator</span><strong>Jeeshan Ahmad</strong></div>
+      <div class="identity-detail"><span>Owner</span><strong>Jeeshan Ahmad</strong></div>
+      <div class="security-note info-note"><span>i</span><div><strong>Prototype information</strong><p>J.A.V.E.L.I.N. uses Google's Gemini API for responses. The identity details are included in every request's system instruction, but an AI model can still occasionally make mistakes.</p></div></div>
+    </section>
+    <div class="dialog-foot"><span><span class="tiny-shield">◇</span> J.A.V.E.L.I.N. SYSTEM v1.0</span><button class="secondary-btn" id="doneSettings">Done</button></div>
+  </dialog>
+
+  <div class="toast-region" id="toastRegion" aria-live="polite"></div>
+</body>
+</html>
